@@ -132,6 +132,30 @@ app.delete('/api/delentry/:id', async (req, res) => {
     })
 })
 
+// edit entry
+
+app.put('/api/editentry/:id',  async (req, res) => {
+    const { id } = req.params
+
+    const { amount, type, description, category } = req.body;
+
+    await Detail.updateOne({ _id: id },
+        {
+            $set: {
+                amount, description, type, category
+            }
+        })
+
+    const updatedTransaction = await Detail.findOne({ _id: id })
+
+
+    res.json({
+        success: "true",
+        data: updatedTransaction,
+        message: "Entry update succesfully..!"
+    })
+})
+
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
