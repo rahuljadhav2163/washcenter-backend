@@ -156,6 +156,21 @@ app.put('/api/editentry/:id',  async (req, res) => {
     })
 })
 
+// display edit data 
+
+app.get('/api/gettransaction/:id', async (req, res) => {
+    const { id } = req.params
+
+    const idTransaction = await Detail.findOne({ _id: id })
+    res.json({
+        success: "true",
+        data: idTransaction,
+        message: "Entry display succesfully..!"
+    })
+}
+)
+
+
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
