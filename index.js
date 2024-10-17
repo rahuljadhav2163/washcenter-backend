@@ -24,7 +24,6 @@ try {
 app.get('/', (req, res) => {
     res.send('server is running')
 })
-
 // user register
 
 app.post('/api/register', async (req, res) => {
@@ -94,8 +93,6 @@ app.post('/api/addVehicle', async (req, res) => {
 
 // get data
 
-
-
 app.get('/api/getVehicles/user/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -122,6 +119,18 @@ app.get('/api/getVehicles/user/:id', async (req, res) => {
     }
 });
 
+// delete entry
+
+app.delete('/api/delentry/:id', async (req, res) => {
+    const { id } = req.params;
+
+    await Detail.deleteOne({ _id: id })
+
+    res.json({
+        success: "true",
+        message: "Entry delete succesfully..!"
+    })
+})
 
 const PORT = 5000;
 app.listen(PORT, () => {
